@@ -1,40 +1,37 @@
 class Solution {
-    public void mergeSort(int[] arr,int low,int high){
-        if(low>=high)
-        return ;
-        int mid=(low+high)/2;
-        mergeSort(arr,low,mid);
-        mergeSort(arr,mid+1,high);
-        merge(arr,low,mid,high);
+
+ public int[] sortArray(int[] nums) {
+        return mergeSort(nums, 0, nums.length-1);
     }
-    public void merge(int[] arr,int low,int mid,int high){
-        List<Integer> tmp=new ArrayList<Integer>();
-        int left=low;
-        int right=mid+1;
-        while(left<=mid && right<=high){
-if(arr[left]<arr[right]){
-    tmp.add(arr[left]);
-    left++;
-}
-else{
-    tmp.add(arr[right]);
-right++;
-}
+
+    private int[] mergeSort(int[] nums, int l, int r) {
+        if(l>=r) {
+            return new int[]{nums[l]};
         }
-        while(left<=mid){
-            tmp.add(arr[left]);
-left++;
-        }
-        while(right<=high){
-            tmp.add(arr[right]);
-       right++;
-        }
-        for(int i=low;i<=high;i++){
-            arr[i]=tmp.get(i-low);
-        }
+
+        int m = (l+r)/2;
+
+        int[] left = mergeSort(nums, l, m);
+        int[] right = mergeSort(nums, m+1, r);
+
+        return merge(left, right);
     }
-    public int[] sortArray(int[] nums) {
-        mergeSort(nums,0,nums.length-1);
-        return nums;
-    }
+
+    private int[] merge(int[] left, int[] right) {
+        int i=0, j=0, k=0, m=left.length, n=right.length;
+
+        int[] ans = new int[m+n];
+
+        while(i<m && j<n) {
+            ans[k++] = left[i] < right[j] ? left[i++] : right[j++];
+        }
+        while(i<m) {
+            ans[k++] = left[i++];
+        }
+        while(j<n) {
+            ans[k++] = right[j++];
+        }
+
+        return ans;
+    } 
 }
