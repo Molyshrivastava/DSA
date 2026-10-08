@@ -2,10 +2,6 @@ class Solution {
     public static long hours(int[] arr,int n){
       long hr=0;
         for(int i=0;i<arr.length;i++){
-            // if (arr[i] % n == 0) //coz 7/3=2.3 so we have to take it 3approx
-            //     hr+=arr[i]/n;
-            // else
-            //     hr+=arr[i]/ n + 1;
           hr+= (arr[i] + n - 1) / n;
         }
         return hr;
